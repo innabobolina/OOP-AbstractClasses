@@ -21,9 +21,17 @@ class AbstractMelonOrder():
         """Calculate price, including tax."""
 
         base_price = 5
-        total = (1 + self.tax) * self.qty * base_price
+        flat_fee = 0
 
-        return total   
+        if self.species == "Christmas":
+            base_price = base_price * 1.5
+
+        if self.order_type == "international" and self.qty < 10:
+            flat_fee = 3
+        
+        total = (1 + self.tax) * self.qty * base_price 
+
+        return total + flat_fee 
 
 
 class DomesticMelonOrder(AbstractMelonOrder):
