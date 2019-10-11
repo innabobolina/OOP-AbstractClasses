@@ -1,5 +1,7 @@
 """Classes for melon orders."""
 
+from random import randint
+
 class AbstractMelonOrder():
     """An abstract base class that other Melon Orders inherit from."""
 
@@ -17,11 +19,15 @@ class AbstractMelonOrder():
 
         self.shipped = True
 
+    def get_base_price(self):
+        return randint(5, 9)
+
     def get_total(self):
         """Calculate price, including tax."""
 
-        base_price = 5
+        base_price = self.get_base_price()
         flat_fee = 0
+        print("Print base price: ", base_price)
 
         if self.species == "Christmas":
             base_price = base_price * 1.5
@@ -46,7 +52,6 @@ class GovernmentMelonOrder(AbstractMelonOrder):
         self.passed_inspection = passed 
 
 
-
 class DomesticMelonOrder(AbstractMelonOrder):
     """A melon order within the USA."""
     
@@ -66,3 +71,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code
+
+
+order1 = DomesticMelonOrder("cantaloupe", 2)
+print(order1.get_total())
