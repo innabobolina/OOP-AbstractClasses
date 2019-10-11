@@ -34,6 +34,19 @@ class AbstractMelonOrder():
         return total + flat_fee 
 
 
+class GovernmentMelonOrder(AbstractMelonOrder):
+
+    def __init__(self, species, qty):
+        super().__init__(species, qty, "domestic", 0)
+
+        self.passed_inspection = False 
+
+    def mark_inspection(self, passed):
+
+        self.passed_inspection = passed 
+
+
+
 class DomesticMelonOrder(AbstractMelonOrder):
     """A melon order within the USA."""
     
